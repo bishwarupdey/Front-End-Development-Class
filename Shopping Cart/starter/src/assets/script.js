@@ -31,13 +31,13 @@ const products = [cherry, orange, strawberry];
 const cart = [];
 
 //Fundtion to find Product by productId.
-function getProduct(productList, productId) {
+function getProductById(productList, productId) {
   return productList.find((product) => product.productId === productId);
 }
 
 // Function to add product to cart when first clicked on the item. This function increases the quantity of the product to +1.
 function addProductToCart(productId) {
-  const product = getProduct(products, productId) //gets the right product based on the productId provided from the array products
+  const product = getProductById(products, productId) //gets the right product based on the productId provided from the array products
 
   if (!product) return; //If product is not found then return nothing.
 
@@ -50,28 +50,23 @@ function addProductToCart(productId) {
 
 //Function to increase the quantity of the product by one in the shopping cart.
 function increaseQuantity(productId) {
-  const product = getProduct(products, productId) //gets the right product based on the productId provided from the array products
+  const product = getProductById(products, productId) //gets the right product based on the productId provided from the array products
   if (!product) return; //If product is not found then return nothing.
   
   product.quantity++; //increases product quantity by one  
 }
 
-/*
-Function to decrease the quantity of the product in the cart by one. 
-The function also checks if the quantity of the product is 0 after it decreases by 1 then it calls
-on the function "removeProductFromCart" to remove the item from the shopping cart.
-*/
+//Function to decrease quantity in cart.
 function decreaseQuantity(productId) {
-  const product = getProduct(products, productId) //gets the right product based on the productId provided from the array products
+  const product = getProductById(products, productId) //gets the right product based on the productId provided from the array products
   if (!product) return; //If product is not found then return nothing.
 
   //Checks to see if product quantity is greater than 0. If yes, then subtract one.
   if (product.quantity > 0) {
     product.quantity--; //subtract one from product quantity
-  }
-  //If product quantity is 0 then remove it from cart.
-  if (product.quantity === 0) {
+    if (product.quantity === 0) {   // if product quantity is 0 then the product is removed from cart.
         removeProductFromCart(productId);
+    }
   }
 }
 
